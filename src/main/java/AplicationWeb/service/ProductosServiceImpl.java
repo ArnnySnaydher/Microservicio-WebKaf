@@ -42,18 +42,27 @@ public class ProductosServiceImpl implements ProductosService{
 
     @Override
     public Mono<Void> altaProducto(Producto producto) {
-        return null;
+        return productoCodigo(producto.getCodProducto())//Mono<Producto>
+                .switchIfEmpty(Mono.just(producto).map( producto1 -> {productos.add(producto);
+                return producto1;
+                }))//Mono<Producto>
+                .then();//Mono<Void>
     }
 
     @Override
     public Mono<Producto> eliminarProducto(int cod) {
         return productoCodigo(cod)//Mono<Producto>
                 .map(producto -> {productos.removeIf(producto1 -> producto1.getCodProducto()==cod);
-                return producto;});//Mono<Producto>
+                return producto;
+                });//Mono<Producto>
     }
 
     @Override
     public Mono<Producto> actualizarPrecio(int cod, double precio) {
-        return null;
+        
+        return productoCodigo(cod) //MonoProducto
+                .map( producto -> {producto.setPrecioUnitario(precio); 
+                    return producto;
+                });
     }
 }
