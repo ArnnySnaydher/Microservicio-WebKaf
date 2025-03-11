@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+@CrossOrigin("*")
 @RestController
 public class ProductosController {
     @Autowired
@@ -20,8 +21,8 @@ public class ProductosController {
         return new ResponseEntity<>(productosService.catalogo(), HttpStatus.OK);
     }
     
-    @GetMapping(value = "prodcutos/{categoria}")
-    public ResponseEntity<Flux<Producto>> producttsCategoria(@PathVariable("categoria") String categoria){
+    @GetMapping(value = "productos/{categoria}")
+    public ResponseEntity<Flux<Producto>> productosCategoria(@PathVariable("categoria") String categoria){
         return new ResponseEntity<>(productosService.productosCategoria(categoria),HttpStatus.OK);
     }
     
